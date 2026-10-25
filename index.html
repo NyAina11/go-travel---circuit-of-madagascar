@@ -1,0 +1,1370 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="color-scheme" content="dark">
+    <title>Go Travel · Circuits of Madagascar</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Josefin+Sans:wght@300;600&family=Oswald:wght@500&family=Cormorant+Garamond:wght@500;700&family=Rozha+One&display=swap"
+        rel="stylesheet">
+    <style>
+        @property --sl {
+            syntax: "<number>";
+            inherits: true;
+            initial-value: .8
+        }
+
+        @property --sr {
+            syntax: "<number>";
+            inherits: true;
+            initial-value: .8
+        }
+
+        :root {
+            --bg: #0b1a12;
+            --fg: #e6efe3;
+            --mut: #9db3a4;
+            --card: #12281c;
+            --ac: #ff6a45;
+            --tea: #6fcf97;
+            --ln: #2a4535;
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px)
+        }
+
+        html {
+            scroll-padding-top: env(safe-area-inset-top, 0px)
+        }
+
+        *,
+        :before,
+        :after {
+            box-sizing: inherit
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--fg);
+            font: 17px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+            overflow-x: hidden
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font: var(--fw, 400) 1em/1.05 var(--ff, "Young Serif", Georgia, serif);
+            margin: 0
+        }
+
+        /* un style par circuit */
+        .c0 {
+            --l: #ffd08a
+        }
+
+        .c1 {
+            --ff: "Josefin Sans", system-ui, sans-serif;
+            --fw: 600;
+            --ac: #0aa89e;
+            --tea: #0aa89e;
+            --l: #9ff3ea;
+            --dn: #7ff0e2;
+            --ta: center;
+            --hm: 0 auto;
+            --hg: radial-gradient(90% 42% at 10% 104%, #0b4a47 58%, #0000 59%), radial-gradient(80% 36% at 94% 106%, #12786f 58%, #0000 59%), linear-gradient(#d6f5ef, #7fd1c3 62%, #2b9c8e)
+        }
+
+        .c2 {
+            --ff: Oswald, Impact, sans-serif;
+            --fw: 500;
+            --ac: #e8761e;
+            --tea: #e8761e;
+            --l: #ffb27a;
+            --dn: #ffc9a0;
+            --ta: right;
+            --hm: 0 0 0 auto;
+            --mk: 6px;
+            --gd: 10 8;
+            --sw: 6;
+            --hg: radial-gradient(90% 42% at 10% 104%, #5a2410 58%, #0000 59%), radial-gradient(80% 36% at 94% 106%, #8a3a14 58%, #0000 59%), linear-gradient(#ffd9a8, #f0a064 62%, #c46a2e)
+        }
+
+        .c3 {
+            --ff: "Cormorant Garamond", Georgia, serif;
+            --fw: 700;
+            --ac: #e0457b;
+            --tea: #e0457b;
+            --l: #ffd1e0;
+            --dn: #ffb3cf;
+            --mk: 16px;
+            --gd: 2 10;
+            --hg: radial-gradient(90% 42% at 10% 104%, #2a2a63 58%, #0000 59%), radial-gradient(80% 36% at 94% 106%, #4a3f8f 58%, #0000 59%), linear-gradient(#ffd6e4, #f59ab8 55%, #6a5aa8)
+        }
+
+        .c4 {
+            --ac: #f0a20a;
+            --tea: #f0a20a;
+            --l: #fff0b0;
+            --dn: #ffd980;
+            --ta: center;
+            --hm: 0 auto;
+            --mk: 50% 50% 50% 4px;
+            --hg: radial-gradient(90% 42% at 10% 104%, #3a1a0e 58%, #0000 59%), radial-gradient(80% 36% at 94% 106%, #5a2a12 58%, #0000 59%), linear-gradient(#ffe9a8, #f6a93a 55%, #8a3a1a)
+        }
+
+        /* hero */
+        .hero {
+            position: relative;
+            min-height: 92vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            color: #fff;
+            overflow: hidden
+        }
+
+        .bg {
+            position: absolute;
+            inset: -6%;
+            background: var(--hg, radial-gradient(90% 42% at 10% 104%, #17402c 58%, #0000 59%), radial-gradient(80% 36% at 94% 106%, #2e7d4f 58%, #0000 59%), radial-gradient(70% 30% at 50% 100%, #4f9a5f 58%, #0000 59%), linear-gradient(#f6e7b4, #bfd8b0 62%, #7fb07a));
+            translate: 0 var(--py, 0px);
+            animation: kb 24s ease-in-out infinite alternate
+        }
+
+        @keyframes kb {
+            to {
+                scale: 1.1
+            }
+        }
+
+        .hero:after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, .55) 0%, rgba(0, 0, 0, .12) 25%, rgba(0, 0, 0, .45) 50%, rgba(0, 0, 0, .75) 80%, color-mix(in srgb, var(--bg) calc(var(--fd, 1)*100%), rgba(0, 0, 0, .8)) 100%);
+            pointer-events: none
+        }
+
+        .logo {
+            position: absolute;
+            z-index: 2;
+            top: calc(env(safe-area-inset-top, 0px) + 22px);
+            left: clamp(20px, 5vw, 64px);
+            font: 400 1.5rem "Young Serif", Georgia, serif;
+            text-shadow: 0 1px 8px #0006
+        }
+
+        .hc {
+            position: relative;
+            z-index: 2;
+            padding: 0 clamp(20px, 5vw, 64px) 84px;
+            max-width: 980px;
+            text-align: var(--ta, left);
+            margin: var(--hm, 0)
+        }
+
+        .hero:not(.in) .hc>* {
+            opacity: 0
+        }
+
+        .hero.in .hc>* {
+            animation: up 1s cubic-bezier(.2, .7, .2, 1) backwards
+        }
+
+        .hero.in .hc>:nth-child(2) {
+            animation-delay: .3s
+        }
+
+        @keyframes up {
+            from {
+                opacity: 0;
+                transform: translateY(34px)
+            }
+        }
+
+        .hc h2 {
+            font-size: clamp(2.6rem, 9vw, 5.8rem);
+            margin: 0;
+            text-shadow: 0 2px 28px #0009, 0 1px 4px #0006
+        }
+
+        .hc p {
+            margin: 20px 0 0
+        }
+
+        .hc b {
+            display: inline-block;
+            margin: 0 10px 8px 0;
+            padding: 6px 16px;
+            border-radius: 99px;
+            background: #ffffff26;
+            -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(6px);
+            font-weight: 600
+        }
+
+        .cue {
+            position: absolute;
+            z-index: 2;
+            bottom: 24px;
+            left: 50%;
+            translate: -50% 0;
+            font-size: .85rem;
+            font-weight: 600;
+            letter-spacing: .04em;
+            color: var(--fg);
+            background: color-mix(in srgb, var(--card) 75%, transparent);
+            padding: 6px 18px;
+            border-radius: 99px;
+            border: 1px solid var(--ln);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, .1);
+            animation: bob 2s ease-in-out infinite
+        }
+
+        @keyframes bob {
+            50% {
+                transform: translateY(7px)
+            }
+        }
+
+        /* intro + highlights */
+        .w {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px clamp(16px, 4vw, 40px) 0
+        }
+
+        .lead {
+            font-size: 1.3rem;
+            max-width: 60ch;
+            margin: 0 0 36px
+        }
+
+        h2 {
+            font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+            margin: 0 0 20px
+        }
+
+        /* Highlights - Original, authentic & simple */
+        .hl-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 20px;
+            margin: 0 0 32px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--ln);
+        }
+
+        .hl-head h3 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin: 0;
+            color: var(--fg);
+            letter-spacing: -0.01em;
+        }
+
+        .hl-count {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--tea);
+        }
+
+        .hl {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: clamp(24px, 3.5vw, 36px);
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .hl-item {
+            list-style: none;
+            position: relative;
+            padding-top: 18px;
+            border-top: 2px solid color-mix(in srgb, var(--tea) 35%, var(--ln));
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: border-color 0.25s ease, transform 0.25s ease;
+        }
+
+        .hl-item:hover {
+            border-top-color: var(--tea);
+            transform: translateY(-3px);
+        }
+
+        .hl-num {
+            font: var(--fw, 400) clamp(2.1rem, 3.2vw, 2.7rem)/1 var(--ff, "Young Serif", Georgia, serif);
+            color: var(--tea);
+            letter-spacing: -0.02em;
+            opacity: 0.9;
+        }
+
+        .hl-txt {
+            margin: 0;
+            font-size: 1.05rem;
+            line-height: 1.55;
+            color: var(--fg);
+            font-weight: 500;
+        }
+
+        /* Distinctive, authentic typography variations by circuit */
+        .c0 .hl-num {
+            font-family: "Young Serif", Georgia, serif;
+        }
+
+        .c1 .hl-head {
+            justify-content: space-between;
+        }
+
+        .c1 .hl-item {
+            border-top-style: dashed;
+            border-top-width: 1.5px;
+        }
+
+        .c1 .hl-num {
+            font-family: "Josefin Sans", system-ui, sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+        }
+
+        .c2 .hl-item {
+            border-top-width: 3px;
+        }
+
+        .c2 .hl-num {
+            font-family: Oswald, Impact, sans-serif;
+            font-size: clamp(2.4rem, 3.8vw, 3.1rem);
+            font-weight: 500;
+        }
+
+        .c3 .hl-head h3 {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-style: italic;
+            font-weight: 600;
+        }
+
+        .c3 .hl-num {
+            font-family: "Cormorant Garamond", Georgia, serif;
+            font-style: italic;
+            font-weight: 700;
+            font-size: clamp(2.5rem, 4vw, 3.2rem);
+        }
+
+        .c4 .hl-item {
+            border-top: 2.5px solid var(--tea);
+        }
+
+        /* fond fixe qui change de jour en jour */
+        .sec {
+            position: relative;
+            color: #fff;
+            background: #0b1a12;
+            clip-path: inset(0)
+        }
+
+        .day-head {
+            position: relative;
+            z-index: 2;
+            padding: 90px 0 28px;
+            background: linear-gradient(to bottom, var(--bg) 0%, #0b1a12 60%, #0b1a1200 100%)
+        }
+
+        .day-head .w {
+            padding-top: 0;
+            padding-bottom: 0
+        }
+
+        .day-head h3 {
+            color: #fff;
+            font-size: clamp(2rem, 4.5vw, 2.8rem);
+            text-shadow: 0 2px 12px rgba(0, 0, 0, .7);
+            margin: 0
+        }
+
+        .bgs {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            height: 100svh;
+            margin-bottom: -100vh;
+            margin-bottom: -100svh;
+            overflow: hidden;
+            transition: --sl .9s, --sr .9s
+        }
+
+        .bgs:after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            background: linear-gradient(90deg, rgba(0, 0, 0, var(--sl)) 0%, rgba(0, 0, 0, calc(var(--sl)*.85)) 45%, #0000 78%), linear-gradient(270deg, rgba(0, 0, 0, var(--sr)) 0%, rgba(0, 0, 0, calc(var(--sr)*.85)) 45%, #0000 78%), linear-gradient(#0008, #0000 26%, #0000 60%, #000a)
+        }
+
+        .bl {
+            position: absolute;
+            inset: 0;
+            background: var(--g) center/cover;
+            opacity: 0;
+            transform: scale(1.1);
+            transition: opacity 1.1s ease, transform 10s ease-out
+        }
+
+        .bl.old {
+            opacity: 1;
+            z-index: 1;
+            transition: none
+        }
+
+        .bl.act {
+            opacity: 1;
+            z-index: 2;
+            transform: none
+        }
+
+        .tl {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px clamp(16px, 4vw, 40px) 0
+        }
+
+        .sv {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: visible
+        }
+
+        .s2 {
+            z-index: 2
+        }
+
+        .gh {
+            fill: none;
+            stroke: #ffffff59;
+            stroke-width: 4;
+            stroke-dasharray: var(--gd, 1 12);
+            stroke-linecap: round
+        }
+
+        .pa {
+            fill: none;
+            stroke: var(--l);
+            stroke-width: var(--sw, 5);
+            stroke-linecap: round
+        }
+
+        .vf {
+            fill: var(--ac);
+            stroke: #fff;
+            stroke-width: 1.4;
+            stroke-linejoin: round
+        }
+
+        .vg {
+            fill: #fff;
+            opacity: .16
+        }
+
+        .day {
+            position: relative;
+            min-height: 560px;
+            min-height: max(72svh, 520px)
+        }
+
+        .mk {
+            position: absolute;
+            z-index: 1;
+            top: 34px;
+            left: var(--mx);
+            width: 46px;
+            height: 46px;
+            margin: -23px 0 0 -23px;
+            display: grid;
+            place-items: center;
+            border-radius: var(--mk, 50%);
+            background: #0b1a12d9;
+            border: 3px solid #ffffff80;
+            font: 700 .8rem system-ui;
+            color: #fff;
+            opacity: .5;
+            transform: scale(.4);
+            transition: transform .6s cubic-bezier(.3, 1.7, .5, 1), opacity .4s, background .3s
+        }
+
+        .on .mk {
+            transform: none;
+            opacity: 1;
+            background: var(--ac);
+            border-color: #fff
+        }
+
+        .on .mk:after {
+            content: "";
+            position: absolute;
+            inset: -5px;
+            border-radius: inherit;
+            border: 2px solid var(--ac);
+            animation: pl 1.5s ease-out
+        }
+
+        @keyframes pl {
+            to {
+                transform: scale(2);
+                opacity: 0
+            }
+        }
+
+        /* texte : reste epingle en haut jusqu'a ce que le jour suivant apparaisse */
+        .cd {
+            position: sticky;
+            top: 96px;
+            z-index: 3;
+            width: min(46%, 500px);
+            margin-top: 18px;
+            text-shadow: 0 2px 16px #000b, 0 1px 3px #000a
+        }
+
+        .cd>* {
+            opacity: 0;
+            transform: translate(var(--tx, 0), 12px);
+            transition: opacity .6s, transform .8s cubic-bezier(.2, .7, .2, 1)
+        }
+
+        .on .cd>* {
+            opacity: 1;
+            transform: none
+        }
+
+        .on .cd>:nth-child(1) {
+            transition-delay: .25s
+        }
+
+        .on .cd>:nth-child(2) {
+            transition-delay: .33s
+        }
+
+        .on .cd>:nth-child(3) {
+            transition-delay: .42s
+        }
+
+        .on .cd>:nth-child(4) {
+            transition-delay: .5s
+        }
+
+        .on.past .cd>* {
+            opacity: 0;
+            transform: translateY(-14px);
+            transition: opacity .3s, transform .4s
+        }
+
+
+        .l .cd {
+            margin-left: auto;
+            --tx: 28px
+        }
+
+        .r .cd {
+            --tx: -28px
+        }
+
+        .dn {
+            color: var(--dn, #ff9a72);
+            font-weight: 700;
+            font-size: .9rem
+        }
+
+        .cd h4 {
+            font-size: 2.3rem;
+            margin: 4px 0 12px
+        }
+
+        .c2 .cd h4 {
+            text-transform: uppercase;
+            letter-spacing: .02em
+        }
+
+        .c3 .cd h4 {
+            font-style: italic
+        }
+
+        .cd p {
+            margin: 0;
+            font-size: 1.15rem;
+            line-height: 1.55;
+            color: #fff
+        }
+
+        .cd small {
+            display: block;
+            margin-top: 12px;
+            color: #ffffffcc
+        }
+
+        /* indicateurs de timeline : un style par circuit, sans ligne tracee */
+        .hud {
+            position: fixed;
+            z-index: 8;
+            opacity: 0;
+            pointer-events: none;
+            color: #fff;
+            transition: opacity .5s, transform .5s
+        }
+
+        .hud.v {
+            opacity: 1
+        }
+
+        .h1 {
+            left: 50%;
+            bottom: calc(env(safe-area-inset-bottom, 0px) + 18px);
+            transform: translate(-50%, 20px);
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 14px 24px;
+            border-radius: 99px;
+            background: #0b1a12d9;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1px solid #ffffff30
+        }
+
+        .h1.v {
+            transform: translate(-50%, 0)
+        }
+
+        .h1 span {
+            margin-right: 6px;
+            min-width: 5.4em;
+            font-weight: 700;
+            font-size: .9rem;
+            white-space: nowrap
+        }
+
+        .h1 u {
+            position: relative;
+            width: 10px;
+            height: 10px;
+            border-radius: 99px;
+            background: #ffffff40;
+            transition: width .4s, background .4s
+        }
+
+        .h1 u:not(:last-child):after {
+            content: "";
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            width: 18px;
+            height: 2px;
+            margin-top: -1px;
+            background: #ffffff30;
+            transition: background .4s
+        }
+
+        .h1 u.on {
+            background: var(--ac)
+        }
+
+        .h1 u.on:not(.cur):after {
+            background: var(--ac)
+        }
+
+        .h1 u.cur {
+            width: 28px;
+            background: #fff
+        }
+
+        .h2 {
+            right: 18px;
+            top: 50%;
+            transform: translate(24px, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+            padding: 16px 14px 16px 52px;
+            border-radius: 14px;
+            background: #0b1a12d9;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1px solid #ffffff30
+        }
+
+        .h2.v {
+            transform: translate(0, -50%)
+        }
+
+        .h2 u {
+            display: block;
+            position: relative;
+            width: 16px;
+            height: 3px;
+            border-radius: 2px;
+            background: #ffffff40;
+            transition: width .4s, background .4s
+        }
+
+        .h2 u.on {
+            background: var(--ac)
+        }
+
+        .h2 u.cur {
+            width: 46px;
+            height: 4px;
+            background: #fff
+        }
+
+        .h2 u.cur:before {
+            content: attr(data-d);
+            position: absolute;
+            right: calc(100% + 10px);
+            top: 50%;
+            transform: translateY(-50%);
+            font: 600 .8rem var(--ff)
+        }
+
+        .h3 {
+            left: 18px;
+            bottom: calc(env(safe-area-inset-bottom, 0px) + 18px);
+            width: 96px;
+            height: 96px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #0b1a12d9;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            transform: scale(.6)
+        }
+
+        .h3.v {
+            transform: none
+        }
+
+        .h3 svg {
+            position: absolute;
+            inset: 6px;
+            width: calc(100% - 12px);
+            height: calc(100% - 12px);
+            transform: rotate(-90deg)
+        }
+
+        .h3 circle {
+            fill: none;
+            stroke-width: 5
+        }
+
+        .h3 .g {
+            stroke: #ffffff30
+        }
+
+        .h3 .f {
+            stroke: var(--ac);
+            stroke-linecap: round;
+            stroke-dasharray: 226;
+            stroke-dashoffset: 226;
+            transition: stroke-dashoffset .6s
+        }
+
+        .h3 b {
+            font: 700 1.5rem/1 var(--ff);
+            margin-top: -6px
+        }
+
+        .h3 small {
+            position: absolute;
+            bottom: 20px;
+            font-size: .7rem;
+            opacity: .85
+        }
+
+        .h4 {
+            left: 14px;
+            top: calc(env(safe-area-inset-top, 0px) + 12px);
+            max-width: min(62vw, 540px);
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            padding: 10px 18px 14px;
+            border-radius: 12px;
+            background: #0b1a12d9;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1px solid #ffffff30;
+            overflow: hidden;
+            transform: translateY(-14px)
+        }
+
+        .h4.v {
+            transform: none
+        }
+
+        .h4 span {
+            font-size: .8rem;
+            opacity: .85
+        }
+
+        .h4 b {
+            font: 400 1.6rem/1 var(--ff);
+            color: var(--l)
+        }
+
+        .h4 em {
+            font-style: normal;
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap
+        }
+
+        .h4 s {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 3px;
+            border-radius: 0 3px 3px 0;
+            background: var(--ac);
+            width: 0;
+            transition: width .5s
+        }
+
+
+        /* transition entre circuits : pause sombre + portail qui s'ouvre sur le circuit suivant */
+        .rw {
+            position: relative;
+            height: 220vh;
+            background: #0b1a12
+        }
+
+        .stg {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            height: 100svh;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            overflow: hidden;
+            color: #fff;
+            padding: 0 20px
+        }
+
+        .stg:before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(60% 80% at 50% 115%, color-mix(in srgb, var(--ac) 40%, transparent), transparent 70%)
+        }
+
+        .bi {
+            position: relative;
+            opacity: 0;
+            transform: translateY(26px);
+            transition: opacity .9s, transform .9s cubic-bezier(.2, .7, .2, 1)
+        }
+
+        .stg.in .bi {
+            opacity: 1;
+            transform: none
+        }
+
+        .rw .hero {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            height: 100svh;
+            min-height: 0;
+            margin-top: -100vh;
+            margin-top: -100svh
+        }
+
+        .bj {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 22px
+        }
+
+        .bj i {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ffffff33
+        }
+
+        .bj i.d {
+            background: #ffffffa0
+        }
+
+        .bj i.n {
+            background: var(--ac);
+            box-shadow: 0 0 0 6px color-mix(in srgb, var(--ac) 35%, transparent)
+        }
+
+        .bk {
+            margin: 0;
+            font-size: .95rem;
+            opacity: .85
+        }
+
+        .bn {
+            margin: 0 0 14px;
+            font: var(--fw, 400) clamp(5rem, 17vw, 10rem)/1 var(--ff, "Young Serif", Georgia, serif);
+            color: transparent;
+            -webkit-text-stroke: 2px var(--l, #fff)
+        }
+
+        .ch:not(.c0) {
+            background: #0b1a12
+        }
+
+        .wb {
+            background: var(--bg);
+            padding-bottom: 72px;
+        }
+
+        /* chiffres + a propos */
+        /* Madagascar in figures - Editorial & Timeless */
+        .fig {
+            background: #07130d;
+            color: #fff;
+            padding: 110px clamp(16px, 4vw, 40px);
+            position: relative;
+        }
+
+        .fig>* {
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .fig-head {
+            margin-bottom: 48px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .fig-kicker {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: #0aa89e;
+            margin-bottom: 8px;
+        }
+
+        .fig-head h2 {
+            font: 400 clamp(2.2rem, 5vw, 3.4rem)/1.05 "Rozha One", Georgia, serif;
+            margin: 0;
+            color: #fff;
+            letter-spacing: -0.01em;
+        }
+
+        .fig-sub {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: rgba(255, 255, 255, 0.65);
+            margin: 0;
+            max-width: 44ch;
+        }
+
+        .fg {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 16px;
+        }
+
+        .fg div {
+            position: relative;
+            padding: 26px 24px 28px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-top: 2px solid var(--k);
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 148px;
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform .7s cubic-bezier(0.16, 1, 0.3, 1),
+                background .3s,
+                border-color .3s;
+        }
+
+        .fg div.in {
+            opacity: 1;
+            transform: none;
+        }
+
+        .fg div:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.16);
+            border-top-color: var(--k);
+            transform: translateY(-3px);
+        }
+
+        .fg-idx {
+            font-family: monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            color: var(--k);
+            opacity: 0.85;
+            margin-bottom: 12px;
+        }
+
+        .fg b {
+            display: block;
+            margin-bottom: 8px;
+            font: 400 clamp(2rem, 3.4vw, 2.6rem)/1 "Rozha One", Georgia, serif;
+            color: #fff;
+            letter-spacing: -0.01em;
+        }
+
+        .fg p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.94rem;
+            line-height: 1.45;
+        }
+
+        .ab {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px clamp(16px, 4vw, 40px) 0
+        }
+
+        .ab p {
+            max-width: 62ch;
+            font-size: 1.15rem;
+            margin: 0
+        }
+
+        footer {
+            padding: 70px 20px 90px;
+            text-align: center;
+            color: var(--mut);
+            font-size: .9rem
+        }
+
+        #pill {
+            position: fixed;
+            z-index: 9;
+            top: calc(env(safe-area-inset-top, 0px) + 12px);
+            right: 14px;
+            padding: 8px 16px;
+            border-radius: 99px;
+            background: var(--card);
+            border: 1px solid var(--ln);
+            font-weight: 700;
+            font-size: .9rem;
+            opacity: 0;
+            transition: opacity .4s
+        }
+
+        #pill.v {
+            opacity: 1
+        }
+
+        #bar {
+            position: fixed;
+            z-index: 10;
+            top: env(safe-area-inset-top, 0px);
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--ac);
+            transform: scaleX(0);
+            transform-origin: 0 50%
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+
+            *,
+            :before,
+            :after {
+                animation: none !important;
+                transition-duration: .01ms !important;
+                transition-delay: 0s !important
+            }
+
+            .bl {
+                transform: none !important
+            }
+
+            .rw {
+                height: auto
+            }
+
+            .rw .hero {
+                position: relative;
+                height: auto;
+                min-height: 92vh;
+                margin-top: 0
+            }
+
+            .stg {
+                display: none
+            }
+        }
+
+        .sec:after {
+            content: "";
+            display: block;
+            height: 34vh;
+            margin-top: -34vh;
+            position: relative;
+            z-index: 0;
+            pointer-events: none;
+            background: linear-gradient(#0b1a1200, #0b1a12)
+        }
+
+        .sr {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            white-space: nowrap
+        }
+
+        footer a {
+            color: inherit;
+            text-underline-offset: 3px
+        }
+
+        a:focus-visible {
+            outline: 3px solid var(--ac);
+            outline-offset: 3px;
+            border-radius: 2px
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="sr">Go Travel – Circuits of Madagascar</h1>
+    <i id="bar" aria-hidden="true"></i>
+    <div id="pill" aria-hidden="true"></div>
+    <main id="app"></main>
+    <section class="fig">
+        <div class="fig-head">
+            <div>
+                <span class="fig-kicker">Key Facts & Endemism</span>
+                <h2>Madagascar in figures</h2>
+            </div>
+            <p class="fig-sub">An extraordinary sanctuary of ancient evolution, unique biodiversity, and rich cultural
+                heritage.</p>
+        </div>
+        <div class="fg" id="fg"></div>
+    </section>
+    <section class="ab">
+        <h2>About Go Travel</h2>
+        <p>Created in October 2008 and operational since January 2009, Go Travel holds its travel agency and tour
+            operator licence since May 2009. It is a travel agency, a destination management company, a car rental
+            company and the Madagascar agent of Europ Assistance, run by an experienced Malagasy team who know the
+            country and its customs. Its aim: offer different ways of discovering Madagascar, with cultural awareness
+            and biodiversity preservation through responsible tourism.</p>
+    </section>
+    <footer>Go Travel · Espace commercial Hi Pole, Antananarivo<br><a href="tel:+261202245655">+261 20 22 456 55</a> ·
+        <a href="mailto:go.travel@blueline.mg">go.travel@blueline.mg</a> · <a
+            href="https://gotravelmadagascar.com">gotravelmadagascar.com</a>
+    </footer>
+    <script>(() => {
+            /* IMG[circuit][0] = hero, IMG[circuit][1..n] = day 1..n (URL or data: URI) ; circuits : 0 Betsileo, 1 East, 2 Makay, 3 North, 4 West */
+            const IMG = [
+                ['1-1.jpg', '1-2.avif', '1-3.jpeg', '1-4.jpg', '1-5.JPG', '1-6.jpg', '1-7.jpg', '1-8.avif', '1-9.jpg'],
+                ['2-1.avif', '2-2.jpg', '2-3.jpg', '2-4.jpg', '2-5.jpg', '2-6.jpg', '2-7.jpg', '2-8.avif'],
+                ['3-1.webp', '3-2.avif', '3-3.jpg', '3-4.webp', '3-5.jpg', '3-6.avif', '3-7.jpg', '3-8.webp', '3-9.avif'],
+                ['4-1.jpg', '4-2.jpg', '4-3.png', '4-4.jpg', '4-5.jpeg', '4-6.jpg', '4-7.webp', '4-8.jpeg', '4-9.webp', '4-10.jpg'],
+                ['5-1.avif', '5-2.JPG', '5-3.jpg', '5-4.webp', '5-5.jpg', '5-6.jpg', '5-7.jpg', '5-8.jpg']
+            ];
+            /* m : style de timeline (aucun = ligne tracee par un vehicule, 1 a 4 = indicateurs) ; v : vehicule par etape (p = avion, c = voiture) ; d : [titre, texte, jours, nuit] */
+            const C = [
+                {
+                    k: 'Betsileo', t: 'Discovery of<br>Betsileo Area', n: ['10 days', '9 nights'], h: 20, s: 17, v: 'pccccccc',
+                    lead: "Meet the Betsileo, one of Madagascar's 18 ethnic groups and one of the few to keep their traditional civilization alive. Their highlands hold the country's only tea plantation, and their woodworkers are known for artistic sculpture: the Zafimaniry, a Betsileo sub-group, still build in wood and decorate it by hand, a know-how UNESCO listed as intangible cultural heritage in 2002.",
+                    hl: ['Discovery of the highlands', 'Meet and discover the Betsileos', 'Descent of the Matsiatra river and the only tea plantation in Madagascar', 'Hiking in the famous Isalo National Park'],
+                    d: [["Antananarivo – Antsirabe – Ambositra", "Welcome and transfer to the hotel. The next day, drive along the national road N°7, stop at Antsirabe, then continue to Ambositra.", "1–2"],
+                    ["Ambositra", "Transfer to the village of Ifasina, then trek to the first Zafimaniry village. Back in Ambositra in the afternoon.", "3"],
+                    ["Ambositra – Fianarantsoa", "A short visit to Ambositra's handcraft market before continuing to Fianarantsoa.", "4"],
+                    ["Fianarantsoa – Mahatsiatra River", "Float down the Mahatsiatra in a traditional pirogue past typical Betsileo villages, then visit Sahambavy, the only tea plantation in Madagascar.", "5"],
+                    ["Fianarantsoa – Ranohira", "Drive to Ambalavao for the mythical Antemoro paper and Malagasy embroidery, and the Anja community reserve, a lemur park.", "6"],
+                    ["Ranohira · Isalo National Park", "Discover Isalo National Park: bush, natural swimming pool and canyon.", "7"],
+                    ["Ranohira – Antsirabe – Antananarivo", "Early departure back to the highlands, passing Ambalavao and Fianarantsoa again, with a night in Antsirabe. Then continue to Antananarivo and enjoy a sundowner at a restaurant.", "8–9"],
+                    ["Antananarivo", "According to your flight schedule, transfer to the airport and assistance.", "10"]]
+                },
+                {
+                    k: 'East', t: 'Luxuriant East<br>of Madagascar', n: ['13 days', '12 nights'], h: 150, s: 8, v: 'ccccpcp',
+                    lead: "Here nature is protected, with an endemic and rich fauna and sumptuous landscapes. Let yourself be guided by the beauty of Andasibe-Mantadia National Park, the calm and sweetness of the little paradise of Akanin'ny Nofy, the nest of dreams. The boat trip along the Pangalanes Channel and the stunning beaches of Sainte Marie will amaze you.",
+                    hl: ['Fauna and flora', 'The biggest lemurs, the Indri Indri', 'Cruise through the Pangalanes Channel', 'Relax at Sainte Marie', 'Whales, from July to October'],
+                    d: [["Antananarivo – Andasibe", "Arrival and welcome at the hotel, then drive to Andasibe.", "1–2"],
+                    ["Andasibe", "Morning in Andasibe National Park, afternoon at the Vakona private reserve.", "3"],
+                    ["Andasibe – Manambato – Ampasindava", "Drive to Manambato, then cruise on the Pangalanes Channel: one hour of navigation, lunch aboard the Reine Tina and afternoon swimming. Dinner and night on board in the cabins.", "4–5", "at the hotel, then on board"],
+                    ["Ampasindava – Akanin'ny Nofy – Ambavarano", "Visit the park, the village of Andranokoditra and the Vohibola forest. Then the mini workshop, school and clinic of Ambavarano, ending at the sacred place, with lunch and swimming.", "6–7", "on board"],
+                    ["Ambavarano – Tamatave – Sainte Marie", "Breakfast, then Tamatave and a city tour of this economic hub. The next day, flight to Sainte Marie.", "8–9"],
+                    ["Sainte Marie", "Relax time, with the possibility of doing activities.", "10–11"],
+                    ["Sainte Marie – Antananarivo – Home", "Flight to Antananarivo, then a city tour or the handcraft market if time allows. Transfer to the airport and flight back home.", "12–13"]]
+                },
+                {
+                    k: 'Makay', t: 'Exploring the<br>Makay Massif', n: ['14 days', '13 nights', 'June to September'], h: 0, s: 4, v: 'cccccccp',
+                    lead: "The Makay is a massive ruiniform dating from the Jurassic era, in the Center-West of Madagascar, covering 150 x 50 km. It is separated from Isalo by the Mangoky river and lies between the Beroroha region in the South-East and the Mandabe region in the North-West.",
+                    hl: ['Period from June to September', 'Discovery of the high ground and its landscapes', 'Immersion and trek in the Makay Massif', 'Professional and native team of the region', 'Security during the trek', 'Hotels selected throughout the RN7'],
+                    d: [["Antananarivo – Ambositra", "Arrival, welcome and transfer to the hotel. The next day, take the RN7, pass Antsirabe and continue to Ambositra.", "1–2"],
+                    ["Ambositra – Ambalavao – Ranohira", "Continue south, passing Ambalavao, the gate of the South. Visit the Anja reserve, continue to Ranohira and meet the team who will take you through the Makay massif.", "3–4"],
+                    ["Ranohira – Beroroha – Beronono", "Early start after the briefing: about 6 hours of track. Cross the Mangoky river by motorized ferry to Beroroha, then 65 km of track to the village of Beronono.", "5", "at the Makay river bivouac"],
+                    ["Beronono – Morafeno – Nosilahy", "Four days of immersion in a real sanctuary for flora and fauna. Visit the Mahatiny cave paintings and head for the summit, then discover the narrow canyon of Ambanitelo, the ridge and the plateau, with views of the Nosilahy lakes.", "6–7", "at the bivouac"],
+                    ["Nosilahy – Sariaka – Beronono", "A full day in the canyons: the Nosilahy gorges, the Behetaheta forest and the second Sakamanitra canyon. Then visit lake Sariaka and trek to the summit for a view of both lakes, before returning to Beronono.", "8–9", "under tent"],
+                    ["Beronono – Ranohira – Fianarantsoa", "Back to civilization: you leave the Makay and its adventure. After a night of rest, road to the highlands.", "10–11"],
+                    ["Fianarantsoa – Antsirabe – Antananarivo", "Short city tour of Fianarantsoa and on to Antsirabe. Then a city tour by rickshaw and Antananarivo with a sunset at a restaurant.", "12–13"],
+                    ["Antananarivo", "Half-day city tour with a historian guide and the Digue handcraft market, then transfer to the airport.", "14"]]
+                },
+                {
+                    k: 'North', t: 'Discovery of the<br>North of Madagascar', n: ['12 days', '11 nights'], h: 180, s: 9, v: 'pccccccp',
+                    lead: "The North gathers all the sites: the Amber Mountain wet national park, Tsingy like those of the West, and the island of Nosy Be where you can relax and enjoy many activities.",
+                    hl: ['Fauna and flora in the national parks', 'The exceptional Red Tsingy', 'Tsingy in the Ankarana national park', 'The seaside of Nosy Be'],
+                    d: [["Home – Antananarivo – Diego-Suarez", "Arrival at Ivato Airport, welcome and transfer to the hotel. The next day, flight to Diego-Suarez (Antsiranana), a cosmopolitan city with a striking diversity of population.", "1–2"],
+                    ["Diego-Suarez – Three Bays – Joffreville", "Discover the Pigeons' Bay, the Dunes' Bay and the Sakalava Bay, with a picnic lunch on the spot, then transfer to Joffreville.", "3"],
+                    ["Joffreville · Amber Mountain", "Visit Amber Mountain National Park and its dense tropical forest. Trek in the park, picnic lunch and return to the hotel.", "4"],
+                    ["Joffreville – Red Tsingy – Ankarana", "Head to Ankarana, visiting the Red Tsingy, shaped by erosion.", "5"],
+                    ["Ankarana – Nosy Be", "Extraordinary sites and landscapes: the Tsingy Rary and the Bat Cave. Then transfer to Ankify, by boat to Nosy Be and by car to the hotel.", "6–7"],
+                    ["Nosy Be · Nosy Komba & Nosy Tanikely", "Full-day tour of two famous islands: Nosy Komba with its small lemur park, and Nosy Tanikely, a marine reserve with snorkeling.", "8"],
+                    ["Nosy Be · Mont Passot", "Discover the island: sacred tree, Hell-Ville market, Andilana beach and sunset at Mont Passot.", "9"],
+                    ["Nosy Be · Iranja", "Two islets linked by about 2 km of white sand at low tide, each a paradise to discover. An island of turtles.", "10"],
+                    ["Nosy Be – Antananarivo – Home", "Flight to Antananarivo, then a short city tour or the Digue handcraft market if time allows. Transfer to the airport at the end of the evening, assistance and flight home.", "11–12"]]
+                },
+                {
+                    k: 'West', t: 'The Famous West:<br>Tsiribihina, Baobabs<br>and Bemaraha Tsingy', n: ['14 days', '13 nights'], h: 25, s: 3, v: 'ccccccp',
+                    lead: "From Antananarivo to Morondava, discover the West of Madagascar: a barge on the Tsiribihina river, landscapes, a warm welcome from the locals, a waterfall, the endemic flora and fauna and the famous Tsingy de Bemaraha, a UNESCO World Heritage site. Then comes the magnificent Avenue of Baobabs at sunset and the Kirindy Reserve.",
+                    hl: ['Descent of the Tsiribihina river by barge', 'Landscapes with a variety of fauna and flora', 'The Tsingy de Bemaraha', 'The Avenue of Baobabs'],
+                    d: [["Antananarivo – Antsirabe", "Welcome and transfer to your hotel. The next day, road to Antsirabe, with visits along the way.", "1–2"],
+                    ["Antsirabe – Miandrivazo – Tsiribihina", "Drive to Miandrivazo, the starting point of the Tsiribihina river descent. Then two days to discover varied landscapes, meetings and encounters.", "3–5", "at the hotel, then camping"],
+                    ["Belo sur Tsiribihina – Tsanganjoly", "End of the navigation, transfer to Tsanganjoly and a night walk on the site. Then a day to discover, meet people and relax.", "6–7"],
+                    ["Tsanganjoly – Bekopaka · Big Tsingy", "Cross the Tsiribihina river by ferry and take the track to the village of Bekopaka. Then trek to discover the famous Big Tsingy.", "8–9"],
+                    ["Bekopaka · Manambolo & Small Tsingy", "After breakfast, discover caves by pirogue on the Manambolo river, then trek to the Small Tsingy.", "10"],
+                    ["Bekopaka – Kirindy – Morondava", "Drive back toward Morondava and take a night walk in the Kirindy Reserve to watch the fosa, the biggest carnivore. The next day, a walk in the reserve, photos at the Avenue of Baobabs, then on to Morondava.", "11–12"],
+                    ["Morondava – Antananarivo – Home", "Flight to Antananarivo, short city tour and sunset at a restaurant. Then the Digue handcraft market for souvenirs, and fly home.", "13–14"]]
+                }];
+            const F = [["587,041 km²", "4th largest island in the world"], ["27,000,000", "inhabitants"], ["18", "ethnic groups"], ["5,000 km", "of seaside"], ["108", "species of lemurs"], ["95", "species of chameleons, two thirds of the world's"], ["292", "bird species, 108 of them endemic"], ["7", "species of baobab, 6 of them endemic"], ["4,220", "tree species, 96% endemic"], ["1,000", "species of orchids"], ["13,260,000 ha", "of forest formations"], ["43", "protected areas covering 2,600,000 ha, around 3% of the country"]];
+            const $ = (s, r = document) => r.querySelector(s), pill = $('#pill'), bar = $('#bar'), MX = [20, 78, 26, 72, 18, 80, 30, 70, 22, 76, 24, 74, 28, 68], R = [], PS = [];
+            const VEH = `<g class=vh><circle class=vg r=20 /><g data-v=p transform="translate(-16 -16)"><path class=vf d="M30 16C30 14.8 29 14 27 14H20L12 5H8L13 14H7L4 11H2L4 16L2 21H4L7 18H13L8 27H12L20 18H27C29 18 30 17.2 30 16Z"/></g><g data-v=c transform="translate(-16 -12)"><rect class=vf x=2 y=6 width=28 height=12 rx=5 /><path fill="#fff" d="M19 8L23 9.5V14.5L19 16ZM7 9L10 9.5V14.5L7 15Z"/></g></g>`;
+            const RM = matchMedia('(prefers-reduced-motion:reduce)').matches;
+            const chap = (c, i) => `<section class="ch c${i}" aria-labelledby=t${i}><header class=hero><div class=bg aria-hidden=true></div>${i ? '' : '<div class=logo>Go Travel</div>'}<div class=hc><h2 id=t${i}>${c.t}</h2><p>${c.n.map(x => `<b>${x}</b>`).join('')}</p></div>${i ? '' : '<div class=cue aria-hidden=true>Scroll ↓</div>'}</header><div class=wb><section class=w><p class=lead>${c.lead}</p><div class=hl-head><h3>Highlights</h3><span class=hl-count>0${c.hl.length} key experiences</span></div><ul class=hl>${c.hl.map((h, idx) => `<li class=hl-item><span class=hl-num aria-hidden=true>0${idx + 1}</span><p class=hl-txt>${h.includes('|') ? h.split('|')[1] : h}</p></li>`).join('')}</ul></section></div><div class=sec><div class=bgs aria-hidden=true></div><div class=day-head><div class=w><h3>Day by day</h3></div></div><div class=tl></div></div></section>`;
+            const mkHud = (el, c, N, TOT) => {
+                const h = document.createElement('div'), lab = i => c.d[i][2] || i + 1, q = s => h.querySelector(s);
+                h.className = 'hud h' + c.m; h.setAttribute('aria-hidden', 'true');
+                h.innerHTML = ['', '<span></span>' + c.d.map(() => '<u></u>').join(''), c.d.map((d, i) => `<u data-d="D${parseInt(lab(i))}"></u>`).join(''), '<svg viewBox="0 0 84 84"><circle class=g cx=42 cy=42 r=36 /><circle class=f cx=42 cy=42 r=36 /></svg><b></b><small></small>', '<span>Day</span><b></b><em></em><s></s>'][c.m];
+                el.appendChild(h);
+                const us = [...h.querySelectorAll('u')];
+                return (n, v) => {
+                    h.classList.toggle('v', v); if (!n) return;
+                    const l = lab(n - 1), pr = parseInt(String(l).split('–').pop()) / TOT;
+                    us.forEach((u, i) => { u.classList.toggle('on', i < n); u.classList.toggle('cur', i == n - 1) });
+                    if (c.m == 1) q('span').textContent = 'Day ' + l;
+                    if (c.m == 3) { q('.f').style.strokeDashoffset = 226 * (1 - pr); q('b').textContent = l; q('small').textContent = '/ ' + TOT }
+                    if (c.m == 4) { q('b').textContent = l; q('em').textContent = c.d[n - 1][0]; q('s').style.width = pr * 100 + '%' }
+                }
+            };
+            function build(el, c, ci) {
+                const tl = $('.tl', el), bgs = $('.bgs', el), hero = $('.hero', el), hb = $('.bg', el), N = c.d.length, TOT = parseInt(c.n[0]), M = c.m;
+                tl.innerHTML = (M ? '' : '<svg class=sv aria-hidden=true><path class=gh /><path class=pa /></svg><svg class="sv s2" aria-hidden=true>' + VEH + '</svg>') + c.d.map((d, i) => `<div class="day ${MX[i] < 50 ? 'l' : 'r'}" style="--mx:${MX[i]}%">${M ? '' : `<b class=mk aria-hidden=true>D${parseInt(d[2] || i + 1)}</b>`}<article class=cd><span class=dn>Day ${d[2] || i + 1}</span><h4>${d[0].replace(/ – /g, '\u00a0– ')}</h4><p>${d[1]}</p>${i < N - 1 ? `<small>Overnight ${d[3] || 'at hotel'}</small>` : ''}</article></div>`).join('');
+                bgs.innerHTML = c.d.map((d, i) => `<div class=bl style="--g:linear-gradient(135deg,hsl(${c.h + i * c.s} 50% 42%),hsl(${c.h + i * c.s + 30} 50% 28%))"></div>`).join('');
+                const bls = [...bgs.children], days = [...tl.querySelectorAll('.day')], hud = M ? mkHud(el, c, N, TOT) : 0, pa = $('.pa', tl), gh = $('.gh', tl), vh = $('.vh', tl), vs = M ? [] : [...vh.querySelectorAll('[data-v]')];
+                (IMG[ci] || []).forEach((u, i) => { if (!u) return; const e = i ? bls[i - 1] : hb; e.style.backgroundImage = `url("${u}"),${getComputedStyle(e).backgroundImage}` });
+                let ys = [], nl = [], tot = 1, ang = 0, act = -1;
+                const lay = () => {
+                    if (M) return upd();
+                    const W = tl.clientWidth, H = tl.clientHeight;
+                    tl.querySelectorAll('svg').forEach(s => s.setAttribute('viewBox', `0 0 ${W} ${H}`));
+                    let a = [W / 2, 0], p = `M${a}`;
+                    const P = days.map(d => { const m = d.firstChild; return [d.offsetLeft + m.offsetLeft + m.offsetWidth / 2, d.offsetTop + m.offsetTop + m.offsetHeight / 2] });
+                    P.forEach(q => { const k = (q[1] - a[1]) * .55; p += `C${a[0]} ${a[1] + k} ${q[0]} ${q[1] - k} ${q[0]} ${q[1]}`; a = q });
+                    gh.setAttribute('d', p); pa.setAttribute('d', p);
+                    tot = pa.getTotalLength(); pa.style.strokeDasharray = tot;
+                    ys = []; for (let l = 0; l <= tot; l += 5)ys.push(pa.getPointAtLength(l).y);
+                    nl = P.map(q => { const j = ys.findIndex(y => y >= q[1] - 1); return j < 0 ? tot : j * 5 });
+                    upd()
+                };
+                const upd = () => {
+                    const r = tl.getBoundingClientRect(), ty = innerHeight * .6 - r.top; let L = 0;
+                    if (!M) {
+                        let i = ys.findIndex(v => v >= ty); if (i < 0) i = ys.length - 1;
+                        L = Math.min(i * 5, tot); const p = pa.getPointAtLength(L), q = pa.getPointAtLength(Math.min(L + 4, tot));
+                        if (q.x != p.x || q.y != p.y) ang = Math.atan2(q.y - p.y, q.x - p.x) * 57.3;
+                        pa.style.strokeDashoffset = tot - L;
+                        const s = nl.findIndex(n => n >= L - 1), k = s < 0 ? N - 1 : s;
+                        const vk = (c.v && c.v[k]) || 'c';
+                        vs.forEach(g => g.style.display = g.dataset.v == vk ? '' : 'none');
+                        vh.setAttribute('transform', `translate(${p.x} ${p.y}) rotate(${ang}) scale(1.6)`);
+                        vh.style.opacity = ty > 0 ? 1 : 0
+                    }
+                    let n = 0; days.forEach((d, j) => { const on = ty > 0 && (M ? ty >= d.offsetTop + 28 : L >= nl[j] - 6); d.classList.toggle('on', on); n += on });
+                    days.forEach((d, j) => d.classList.toggle('past', j < n - 1));
+                    const ai = Math.max(0, n - 1);
+                    if (ai != act) {
+                        const o = bls[act]; if (o) { o.style.transform = getComputedStyle(o).transform; o.classList.add('old'); setTimeout(() => { o.classList.remove('old'); o.style.transform = '' }, 1200) }
+                        act = ai; bls.forEach((b, j) => b.classList.toggle('act', j == ai));
+                        const right = days[ai].classList.contains('l');
+                        bgs.style.setProperty('--sl', right ? .1 : .8); bgs.style.setProperty('--sr', right ? .8 : .1)
+                    }
+                    if (hud) hud(n, n > 0 && r.bottom > innerHeight * .5);
+                    PS[ci] = !M && n && r.bottom > innerHeight * .5 ? `${c.k} · Day ${c.d[n - 1][2] || n} / ${TOT}` : '';
+                    if (!RM) hb.style.setProperty('--py', Math.max(0, Math.min(-hero.getBoundingClientRect().top, innerHeight)) * .25 + 'px')
+                };
+                R.push({ lay, upd }); lay()
+            }
+            $('#app').innerHTML = C.map(chap).join('');
+            const els = [...$('#app').children];
+            els.forEach((el, i) => build(el, C[i], i));
+            const RWS = [];
+            els.forEach((el, i) => {
+                if (!i) return; const rw = document.createElement('div'), hero = $('.hero', el); rw.className = 'rw';
+                rw.innerHTML = `<div class=stg aria-hidden=true><div class=bi><p class=bn>0${i + 1}</p><div class=bj>${C.map((_, j) => `<i class="${j < i ? 'd' : j == i ? 'n' : ''}"></i>`).join('')}</div><p class=bk>Next destination · part ${i + 1} of ${C.length}</p></div></div>`;
+                el.insertBefore(rw, hero); rw.appendChild(hero); RWS.push({ rw, hero, bn: $('.bn', rw) })
+            });
+            $('#fg').innerHTML = F.map((f, i) => `<div style="--k:${['#d9442a', '#0aa89e', '#e8761e', '#e0457b', '#f0a20a'][i % 5]}"><span class="fg-idx">${String(i + 1).padStart(2, '0')}</span><b>${f[0]}</b><p>${f[1]}</p></div>`).join('');
+            let t = 0;
+            const frame = () => {
+                t = 0; R.forEach(r => r.upd());
+                RWS.forEach(({ rw, hero, bn }) => {
+                    const t = Math.min(1, Math.max(0, -rw.getBoundingClientRect().top / Math.max(1, rw.offsetHeight - innerHeight)));
+                    if (RM) { hero.classList.add('in'); return }
+                    const hb = hero.getBoundingClientRect(), nb = bn.getBoundingClientRect(), cy = nb.top + nb.height / 2 - hb.top, cx = hb.width / 2,
+                        R = Math.hypot(Math.max(cx, hb.width - cx), Math.max(cy, hb.height - cy)) + 24, p = Math.min(1, Math.max(0, (t - .1) / .5)), e = p * p * (3 - 2 * p);
+                    hero.style.clipPath = p >= 1 ? 'none' : `circle(${(e * R).toFixed(1)}px at 50% ${cy.toFixed(1)}px)`;
+                    hero.style.setProperty('--fd', Math.min(1, Math.max(0, (t - .7) / .3)));
+                    if (t > .42) hero.classList.add('in')
+                });
+                const s = PS.find(x => x); pill.textContent = s || ''; pill.classList.toggle('v', !!s);
+                bar.style.transform = `scaleX(${scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight)})`;
+                document.querySelectorAll('.c0 .hero:not(.in),.fg div:not(.in),.stg:not(.in)').forEach(e => { if (e.getBoundingClientRect().top < innerHeight * (e.classList.contains('stg') ? 0.7 : 0.85)) e.classList.add('in') })
+            };
+            const all = () => R.forEach(r => r.lay());
+            addEventListener('scroll', () => t || (t = requestAnimationFrame(frame)), { passive: true });
+            addEventListener('resize', all); addEventListener('load', all);
+            document.fonts && document.fonts.ready.then(all); frame();
+        })()</script>
+</body>
+
+</html>
