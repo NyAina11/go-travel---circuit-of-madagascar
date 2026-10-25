@@ -1160,10 +1160,99 @@
             outline-offset: 3px;
             border-radius: 2px
         }
+
+        /* ================= Loading Screen ================= */
+        #loader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: #0b1a12;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity .65s cubic-bezier(0.16, 1, 0.3, 1), visibility .65s ease;
+        }
+
+        #loader.done {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .ldr-box {
+            text-align: center;
+            padding: 32px 24px;
+            max-width: 360px;
+            width: 90%;
+        }
+
+        .ldr-tag {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--ac);
+            margin-bottom: 12px;
+        }
+
+        .ldr-title {
+            font-family: var(--ff, "Young Serif", Georgia, serif);
+            font-size: 2.1rem;
+            line-height: 1.1;
+            color: var(--fg);
+            margin: 0 0 10px;
+            letter-spacing: -0.01em;
+        }
+
+        .ldr-sub {
+            font-size: 0.82rem;
+            color: var(--mut);
+            margin: 0 0 32px;
+            letter-spacing: 0.05em;
+        }
+
+        .ldr-track {
+            width: 160px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.08);
+            margin: 0 auto 16px;
+            border-radius: 99px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .ldr-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--tea), var(--ac));
+            border-radius: 99px;
+            transition: width .28s ease-out;
+        }
+
+        .ldr-status {
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(157, 179, 164, 0.7);
+        }
     </style>
 </head>
 
 <body>
+    <div id="loader" aria-hidden="true">
+        <div class="ldr-box">
+            <span class="ldr-tag">Madagascar</span>
+            <h2 class="ldr-title">Go Travel</h2>
+            <p class="ldr-sub">Circuits of Madagascar</p>
+            <div class="ldr-track">
+                <div class="ldr-bar" id="ldrBar"></div>
+            </div>
+            <div class="ldr-status" id="ldrStatus">Loading experience...</div>
+        </div>
+    </div>
     <h1 class="sr">Go Travel – Circuits of Madagascar</h1>
     <i id="bar" aria-hidden="true"></i>
     <div id="pill" aria-hidden="true"></div>
@@ -1291,7 +1380,27 @@
                 tl.innerHTML = (M ? '' : '<svg class=sv aria-hidden=true><path class=gh /><path class=pa /></svg><svg class="sv s2" aria-hidden=true>' + VEH + '</svg>') + c.d.map((d, i) => `<div class="day ${MX[i] < 50 ? 'l' : 'r'}" style="--mx:${MX[i]}%">${M ? '' : `<b class=mk aria-hidden=true>D${parseInt(d[2] || i + 1)}</b>`}<article class=cd><span class=dn>Day ${d[2] || i + 1}</span><h4>${d[0].replace(/ – /g, '\u00a0– ')}</h4><p>${d[1]}</p>${i < N - 1 ? `<small>Overnight ${d[3] || 'at hotel'}</small>` : ''}</article></div>`).join('');
                 bgs.innerHTML = c.d.map((d, i) => `<div class=bl style="--g:linear-gradient(135deg,hsl(${c.h + i * c.s} 50% 42%),hsl(${c.h + i * c.s + 30} 50% 28%))"></div>`).join('');
                 const bls = [...bgs.children], days = [...tl.querySelectorAll('.day')], hud = M ? mkHud(el, c, N, TOT) : 0, pa = $('.pa', tl), gh = $('.gh', tl), vh = $('.vh', tl), vs = M ? [] : [...vh.querySelectorAll('[data-v]')];
-                (IMG[ci] || []).forEach((u, i) => { if (!u) return; const e = i ? bls[i - 1] : hb; e.style.backgroundImage = `url("${u}"),${getComputedStyle(e).backgroundImage}` });
+                el._applyBgs = () => {
+                    (IMG[ci] || []).forEach((u, i) => {
+                        if (!u) return;
+                        const target = i ? bls[i - 1] : hb;
+                        if (target && !target._hasBg) {
+                            target._hasBg = true;
+                            target.style.backgroundImage = `url("${u}"),${getComputedStyle(target).backgroundImage}`;
+                        }
+                    });
+                };
+                if (ci === 0) {
+                    [0, 1, 2].forEach(i => {
+                        const u = IMG[0] && IMG[0][i];
+                        if (!u) return;
+                        const target = i ? bls[i - 1] : hb;
+                        if (target && !target._hasBg) {
+                            target._hasBg = true;
+                            target.style.backgroundImage = `url("${u}"),${getComputedStyle(target).backgroundImage}`;
+                        }
+                    });
+                }
                 let ys = [], nl = [], tot = 1, ang = 0, act = -1;
                 const lay = () => {
                     if (M) return upd();
@@ -1337,6 +1446,56 @@
             $('#app').innerHTML = C.map(chap).join('');
             const els = [...$('#app').children];
             els.forEach((el, i) => build(el, C[i], i));
+
+            // Priority images preloading with elegant loading screen
+            const ldr = $('#loader'), ldrBar = $('#ldrBar');
+            const PRIORITY = (IMG[0] || []).slice(0, 3).filter(Boolean);
+            let pLoaded = 0;
+            const stepProgress = () => {
+                pLoaded++;
+                if (ldrBar) ldrBar.style.width = Math.min(95, Math.round((pLoaded / Math.max(1, PRIORITY.length)) * 90)) + '%';
+            };
+            const priorityPromises = PRIORITY.map(src => new Promise(res => {
+                const im = new Image();
+                im.onload = im.onerror = () => { stepProgress(); res(); };
+                im.src = src;
+            }));
+
+            const minWait = new Promise(r => setTimeout(r, 850));
+            const maxWait = new Promise(r => setTimeout(r, 2600));
+
+            Promise.race([
+                Promise.all([...priorityPromises, minWait]),
+                maxWait
+            ]).then(() => {
+                if (ldrBar) ldrBar.style.width = '100%';
+                setTimeout(() => {
+                    if (ldr) ldr.classList.add('done');
+                    if (els[0] && els[0]._applyBgs) els[0]._applyBgs();
+                    
+                    if ('IntersectionObserver' in window) {
+                        const obs = new IntersectionObserver((entries) => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    const target = entry.target;
+                                    if (target._applyBgs) target._applyBgs();
+                                    obs.unobserve(target);
+                                }
+                            });
+                        }, { rootMargin: '1000px 0px' });
+                        els.slice(1).forEach(el => obs.observe(el));
+                    }
+                    
+                    let nextIdx = 1;
+                    const idleLoad = () => {
+                        if (nextIdx >= els.length) return;
+                        const el = els[nextIdx++];
+                        if (el && el._applyBgs) el._applyBgs();
+                        setTimeout(idleLoad, 450);
+                    };
+                    setTimeout(idleLoad, 600);
+                }, 220);
+            });
             const RWS = [];
             els.forEach((el, i) => {
                 if (!i) return; const rw = document.createElement('div'), hero = $('.hero', el); rw.className = 'rw';
